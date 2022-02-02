@@ -17,7 +17,7 @@ all: $(PROGRAMS)
 
 %: %.c Makefile
 	@printf "Buildig $@ from $< - "
-	@$(CC) -o $@ $< $(VX_CFLAGS) $(CFLAGS) $(VX_LDFLAGS) $(LD_FLAGS) -lopenvx
+	@$(CC) -o $@ $< -g -O0 $(VX_CFLAGS) $(CFLAGS) $(VX_LDFLAGS) $(LD_FLAGS) -lopenvx
 	@echo " done!"
 
 clean:
