@@ -5,8 +5,8 @@
 #
 #   make VX_CFLAGS=-I/path/to/include VX_LDFLAGS=-L/path/to/libs
 #
-VX_CFLAGS=
-VX_LDFLAGS=
+VX_CFLAGS?=
+VX_LDFLAGS?=
 
 SOURCES=$(wildcard vx_training_*.c)
 PROGRAMS=$(patsubst %.c,%,$(SOURCES))
