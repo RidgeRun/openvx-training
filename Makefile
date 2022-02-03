@@ -29,4 +29,4 @@ all: $(PROGRAMS) $(PROGRAMS_CC)
 	@echo " done!"
 
 clean:
-	@rm -f *~ $(PROGRAMS)
+	@rm -f *~ $(PROGRAMS) $(PROGRAMS_CC)
