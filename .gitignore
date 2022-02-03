@@ -1,4 +1,5 @@
 *~
 vx_training_*
 !vx_training_*.c
+!vx_training_*.cc
 out.png

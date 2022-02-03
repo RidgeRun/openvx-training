@@ -9,14 +9,22 @@ VX_CFLAGS?=
 VX_LDFLAGS?=
 
 SOURCES=$(wildcard vx_training_*.c)
+SOURCES_CC=$(wildcard vx_training_*.cc)
+
 PROGRAMS=$(patsubst %.c,%,$(SOURCES))
+PROGRAMS_CC=$(patsubst %.cc,%,$(SOURCES_CC))
 
 .PHONY: all clean
 
-all: $(PROGRAMS)
+all: $(PROGRAMS) $(PROGRAMS_CC)
+
+%: %.cc Makefile
+	@printf "Building $@ from $< - "
+	@$(CXX) -o $@ $< -g -O0 $(VX_CFLAGS) $(CFLAGS) $(VX_LDFLAGS) $(LD_FLAGS) -lopenvx -lm `pkg-config --cflags --libs opencv4` -std=c++11
+	@echo " done!"
 
 %: %.c Makefile
-	@printf "Buildig $@ from $< - "
+	@printf "Building $@ from $< - "
 	@$(CC) -o $@ $< -g -O0 $(VX_CFLAGS) $(CFLAGS) $(VX_LDFLAGS) $(LD_FLAGS) -lopenvx -lm
 	@echo " done!"
 
