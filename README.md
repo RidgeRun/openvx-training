@@ -59,6 +59,7 @@ The following table summarizes the examples available in the project. They were 
 | vx_training_07 | First example in C++. Shows how to continuously process the graph and vary a parameter with each execution. Displays the result in a window. | Image path (defaults to *lena.png*) | |
 | vx_training_08 | Shows how to enable performance measurements. | Image path (defaults to *lena.png*) | |
 | vx_training_09 | Modifies the previous example to be executed in a pipelining mode. | Image path (defaults to *lena.png*) | |
+| vx_training_10 | Modifies the previous example to be executed in a batching mode. | Image path (defaults to *lena.png*) | |
 
 ## Questions
 
