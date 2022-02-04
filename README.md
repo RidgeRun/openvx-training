@@ -30,9 +30,13 @@ Normally this is already included in your system. If not, you may install the [r
 ### Building
 
 The project is based on a simple Makefile. To build it, run the following commands:
-
 ```bash
 make
+```
+
+If your OpenVX installation is on a non-standard location, you may pass in the respective flags as in:
+```bash
+make VX_CFLAGS="-I/non/standard/vx/includes" VX_LDFLAGS="-L/non/standard/vx/lib"
 ```
 
 ### Running Examples
