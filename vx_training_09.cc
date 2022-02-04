@@ -49,7 +49,7 @@ populate_image (vx_image image, const unsigned char *img_data)
   vx_status status = vxCopyImagePatch (image, &rect, 0, &layout, (void *)img_data,
       VX_WRITE_ONLY, VX_MEMORY_TYPE_HOST);
   if (VX_SUCCESS != status) {
-    std::cerr << "vx-training: Unable to copy data into image: " << status << " vs " << VX_ERROR_INVALID_REFERENCE << std::endl;
+    std::cerr << "vx-training: Unable to copy data into image: " << status << std::endl;
     ret = -1;
   } else {
     ret = 0;

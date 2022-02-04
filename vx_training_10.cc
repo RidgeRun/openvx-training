@@ -49,7 +49,7 @@ populate_image (vx_image image, const unsigned char *img_data)
   vx_status status = vxCopyImagePatch (image, &rect, 0, &layout, (void *)img_data,
       VX_WRITE_ONLY, VX_MEMORY_TYPE_HOST);
   if (VX_SUCCESS != status) {
-    std::cerr << "vx-training: Unable to copy data into image: " << status << " vs " << VX_ERROR_INVALID_REFERENCE << std::endl;
+    std::cerr << "vx-training: Unable to copy data into image: " << status << std::endl;
     ret = -1;
   } else {
     ret = 0;
@@ -206,12 +206,12 @@ main (int argc, char *argv[])
 
   vx_image in_refs[num_images];
   for (int i=0; i<num_images; ++i) {
-    in_refs[0] = in_images[0].get ();
+    in_refs[i] = in_images[i].get ();
   }
 
   vx_image out_refs[num_images];
   for (int i=0; i<num_images; ++i) {
-    out_refs[0] = out_images[0].get ();
+    out_refs[i] = out_images[i].get ();
   }
   
   std::vector<vx_graph_parameter_queue_params_t> queue_params_list(2);
@@ -264,8 +264,6 @@ main (int argc, char *argv[])
   };
   vxCopyMatrix(matrix.get (), mat, VX_WRITE_ONLY, VX_MEMORY_TYPE_HOST);
 
-
-
   status = vxGraphParameterEnqueueReadyRef(graph.get (), 0, (vx_reference*)&in_refs[0],
       in_images.size ());
   if (VX_SUCCESS != status) {
@@ -287,6 +285,12 @@ main (int argc, char *argv[])
   vxWaitGraph(graph.get ());
 
   std::cout << "Processed " << num_refs << " images in a single batch!" << std::endl;
+
+  cv::namedWindow ("Processed image", cv::WINDOW_AUTOSIZE);
+  for (const auto &image: out_images) {
+    show_image (image.get ());
+    cv::waitKey(30);
+  }
   
   vx_perf_t perf;
   vxQueryGraph(graph.get (), VX_GRAPH_PERFORMANCE, &perf, sizeof(perf));
