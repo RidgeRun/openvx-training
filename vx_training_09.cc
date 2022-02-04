@@ -244,16 +244,12 @@ main (int argc, char *argv[])
 
   auto matrix = smart_ref (vxCreateMatrix(context.get (), VX_TYPE_FLOAT32, 2, 3));
   vx_enum interpolation = VX_INTERPOLATION_BILINEAR;
-
-  vx_int32 shift = 8;
-  auto s0 = smart_ref(vxCreateScalar(context.get (), VX_TYPE_INT32, &shift));
   
   std::vector<std::shared_ptr<_vx_node>> nodes = {
     // Input image will now be a parameter
     smart_ref (vxChannelExtractNode (graph.get (), in_images[0].get (), VX_CHANNEL_R, intermediate.get ())),
     // Ouput image will now be a parameters
     smart_ref (vxWarpAffineNode (graph.get (), intermediate.get (), matrix.get (), interpolation, out_images[0].get ()))
-    //smart_ref (vxConvertDepthNode (graph.get (), intermediate.get (), out_images[0].get (), VX_CONVERT_POLICY_SATURATE, s0.get ()))
   };
 
   for (auto &node: nodes) {
@@ -307,7 +303,6 @@ main (int argc, char *argv[])
       return -1;
     }
   }
-  std::cout << __FILE__ << ":" << __FUNCTION__ << ":" << __LINE__ << std::endl;
 
   for (auto &img: out_images) {
     vx_status status = enqueue_output (graph.get (), img.get ()); 
@@ -316,7 +311,6 @@ main (int argc, char *argv[])
       return -1;
     }
   }
-  std::cout << __FILE__ << ":" << __FUNCTION__ << ":" << __LINE__ << std::endl;
   
   cv::namedWindow ("Processed image", cv::WINDOW_AUTOSIZE);
 
